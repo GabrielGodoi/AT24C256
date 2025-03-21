@@ -8,7 +8,7 @@
 class AT24C256
 {
 public: 
-		AT24C256(uint8_t address, TwoWire *twi);
+		AT24C256(uint8_t address, TwoWire *twi, uint8_t write_cycle_delay_ms = 0);
 		void begin(void);
 		void write(uint16_t writeAddress, uint8_t* data, uint8_t len);
 		void read(uint16_t readAddress, uint8_t* data, uint8_t len);
@@ -16,6 +16,7 @@ public:
 private:
 		uint8_t _address;
 		TwoWire *_twi;
+		uint8_t _write_cycle_delay;
 };
 
 #endif

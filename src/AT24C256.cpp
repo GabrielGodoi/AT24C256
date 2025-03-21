@@ -3,10 +3,11 @@
 #include "Wire.h"
 #include "AT24C256.h"
 
-AT24C256::AT24C256(uint8_t address, TwoWire *twi){
+AT24C256::AT24C256(uint8_t address, TwoWire *twi, uint8_t write_cycle_delay_ms){
 	
 	_twi = twi;
 	_address = address;
+	_write_cycle_delay = write_cycle_delay_ms;
 
 }
 
@@ -26,6 +27,11 @@ void AT24C256::write(uint16_t writeAddress, uint8_t* data, uint8_t len){
 		_twi->write(data[i]);
 	}
 	_twi->endTransmission();
+
+	if(_write_cycle_delay)
+	{
+		delay(_write_cycle_delay);
+	}
 
 }
 
